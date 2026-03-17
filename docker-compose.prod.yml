@@ -1,0 +1,58 @@
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: auth_postgres_prod
+    restart: always
+    environment:
+      POSTGRES_USER: ${DB_USER:-auth_user}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}  
+      POSTGRES_DB: auth_db
+    ports:
+      - "5432:5432" 
+    volumes:
+      - postgres_data_prod:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-auth_user} -d auth_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - auth_network
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: auth_app_prod
+    restart: always
+    environment:
+      DATABASE_URL: postgresql://${DB_USER:-auth_user}:${DB_PASSWORD}@postgres:5432/auth_db
+      DEBUG: "False"
+      JWT_SECRET: ${JWT_SECRET}  
+      JWT_ALGORITHM: HS256
+      JWT_EXPIRATION_HOURS: 24
+      APP_NAME: Auth System
+      API_V1_PREFIX: /api/v1
+    ports:
+      - "8000:8000"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - auth_network
+    
+
+volumes:
+  postgres_data_prod:
+    driver: local
+
+networks:
+  auth_network:
+    driver: bridge
