@@ -26,3 +26,12 @@
 * **Database:** PostgreSQL 15
 * **DevOps:** Docker & Docker Compose
 * **QA:** Pytest + E2E Testing suite
+
+---
+
+### 🛡 Логика авторизации (RBAC)
+Доступ проверяется на основе матрицы прав `Access Roles Rules`:
+- `read_permission`: Доступ к своим ресурсам.
+- `read_all_permission`: Просмотр всех объектов (Менеджер/Админ).
+- `create_permission`: Создание новых сущностей.
+- `update_all_permission`: Редактирование любых данных (Админ).
