@@ -1,26 +1,28 @@
-# 🔐 Auth System (FastAPI + JWT + RBAC)
+# 🔐 FastAPI Auth System (JWT + RBAC)
 
-**Полнофункциональная база для твоих проектов.** Забудь про написание логина и ролей с нуля. Всё упаковано в Docker, обложено тестами и готово к деплою.
+Полнофункциональный шаблон системы аутентификации и авторизации для быстрой разработки масштабируемых приложений. Забудь про написание логина и ролей с нуля — всё уже упаковано, протестировано и готово к деплою.
 
----
-
-### 🚀 Что умеет эта система?
-
-* **🛡 Безопасность на уровне:** JWT токены с авто-истечением, хеширование паролей через `bcrypt` и защита от неавторизованного доступа.
-* **🎭 Гибкие роли (RBAC):** Не просто «админ», а целая система Permissions и Business Elements. Можно настроить доступ к любому чиху.
-* **🐳 Docker "под ключ":** Контейнеры сами ждут базу (healthchecks), сами накатывают миграции через Alembic и работают от имени безопасного пользователя.
-* **🧪 Тесты на 90%:** Проект покрыт тестами (`pytest`). Есть готовый E2E-скрипт для проверки всей цепочки от регистрации до профиля.
+[![FastAPI](https://img.shields.io/badge/FastAPI-005571?style=for-the-badge&logo=fastapi)](https://fastapi.tiangolo.com/)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?style=for-the-badge&logo=postgresql&logoColor=white)](https://www.postgresql.org/)
+[![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)](https://www.docker.com/)
+[![Pytest](https://img.shields.io/badge/Coverage-90%25-brightgreen?style=for-the-badge&logo=pytest)](https://docs.pytest.org/)
 
 ---
 
-### 📦 Быстрый старт
+## 🚀 Основные возможности
 
-**1. Подготовка конфига**
-Создай файл `.env` и заполни свои данные (возьми за основу `.env.example`):
-```env
-DEBUG=True
-DATABASE_URL=postgresql://auth_user:auth_password@localhost:5432/auth_db
-JWT_SECRET=твой-очень-секретный-ключ
-2. Запуск в DockerBashdocker-compose -f docker-compose.prod.yml up --build
-Система сама дождется PostgreSQL, применит миграции и поднимет API на порту 8000.3. Проверка (E2E тест)Пока контейнеры крутятся, запусти проверку «полного цикла»:Bashpython e2e_test.py
-📂 Основные эндпоинты (Swagger)Вся документация доступна сразу после запуска:📜 Swagger UI: http://localhost:8000/docs📕 ReDoc: http://localhost:8000/redocГруппаМаршрутОписаниеAuth/api/v1/auth/loginВход и получение JWTUsers/api/v1/users/meДанные текущего юзераAdmin/api/v1/admin/rolesУправление ролями (RBAC)🛠 Технологический стекBackend: FastAPI + SQLAlchemy 2.0DB: PostgreSQL 15 + Alembic (миграции)DevOps: Docker + Docker ComposeQA: Pytest (90% coverage)P.S. Проект создавался с прицелом на надежность и удобство расширения. Если нашел баг или есть идея — открывай Issue!
+* 🛡 **Безопасность:** JWT токены (Access/Refresh), хеширование паролей через `bcrypt` и защита от CSRF/XSS.
+* 🎭 **Гибкий RBAC:** Ролевая модель доступа (Role-Based Access Control) с поддержкой Permissions. Настройка доступа к любому эндпоинту.
+* 🐳 **Docker "под ключ":** Полная оркестрация. Контейнеры сами ждут готовности БД (healthchecks) и накатывают миграции Alembic.
+* 🧪 **Надежность:** Покрытие тестами (Pytest) >90%. В комплекте E2E-скрипт для проверки всей цепочки от регистрации до профиля.
+* 🏗 **Modern Stack:** SQLAlchemy 2.0 (Async), Pydantic v2 и автоматическая документация.
+
+---
+
+## 🛠 Технологический стек
+
+* **Backend:** FastAPI
+* **ORM:** SQLAlchemy 2.0 (Async) + Alembic
+* **Database:** PostgreSQL 15
+* **DevOps:** Docker & Docker Compose
+* **QA:** Pytest + E2E Testing suite
