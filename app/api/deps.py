@@ -78,9 +78,9 @@ def check_permission(resource_type: str, required_action: str):
             "create": "can_create",
             "update": "can_update",
             "delete": "can_delete",
-            "read_all": "can_read_all",
+            "read_all_permission": "can_read_all",
             "export": "can_export",
-            "admin": "can_admin",
+            "update_all_permission": "can_admin",
         }
         permission_field = permission_field_map.get(required_action.lower())
         if not permission_field:

@@ -158,9 +158,9 @@ def toggle_access_permission(
         "read": "can_read",
         "update": "can_update",
         "delete": "can_delete",
-        "read_all": "can_read_all",
+        "read_all_permission": "can_read_all",
         "export": "can_export",
-        "admin": "can_admin",
+        "update_all_permission": "can_admin",
     }.get(permission_name.lower())
     if permission_field and hasattr(db_control, permission_field):
         current_value = getattr(db_control, permission_field)

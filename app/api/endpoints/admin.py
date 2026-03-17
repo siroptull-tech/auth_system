@@ -211,7 +211,9 @@ async def toggle_permission(
         "role_id": result.role_id,
         "resource_type": result.resource_type,
         f"toggled_{permission}": getattr(
-            result, f"can_{permission}" if permission != "read_all" else "can_read_all"
+            result, f"can_{permission}" if permission not in ("read_all_permission", "update_all_permission") else (
+                "can_read_all" if permission == "read_all_permission" else "can_admin"
+            )
         ),
         "message": f"Permission '{permission}' toggled successfully",
     }
